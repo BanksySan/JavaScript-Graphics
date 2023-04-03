@@ -1,4 +1,8 @@
-#canvas {
+canvas {
+    border: 1px solid grey;
+}
+
+svg {
     border: 1px solid grey;
 }
 

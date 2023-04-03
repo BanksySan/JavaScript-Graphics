@@ -2,8 +2,9 @@ const NS = 'http://www.w3.org/2000/svg'
 const SVG = document.getElementById('mandelbrot-display')
 const X_AXIS_COLOR = 'blue'
 const Y_AXIS_COLOR = 'green'
-const MAX_ITERATIONS = 5
+let MAX_ITERATIONS = 20
 const TICK_SPACING = 0.1
+const DOT_RADIUS = 0.05
 const VIEW_BOX = {
     x: SVG.viewBox.baseVal.x,
     y: SVG.viewBox.baseVal.y,
@@ -12,6 +13,19 @@ const VIEW_BOX = {
 }
 
 function drawLayout() {
+    const group = document.createElementNS(NS, 'g')
+
+    for (let i = 0; i < 4; i += 0.5) {
+        const ring = document.createElementNS(NS, 'circle')
+        ring.setAttribute('r', i.toString())
+        ring.setAttribute('stroke', 'grey')
+        ring.setAttribute('stroke-width', '0.001')
+        ring.setAttribute('cx', '0')
+        ring.setAttribute('cy', '0')
+        ring.setAttribute('fill', 'none')
+        group.appendChild(ring)
+    }
+
     function drawAxis(id, x1, y1, x2, y2, stroke, strokeWidth) {
         const axis = document.createElementNS(NS, 'line')
 
@@ -22,7 +36,7 @@ function drawLayout() {
         axis.setAttribute('stroke', stroke)
         axis.setAttribute('stroke-width', strokeWidth)
 
-        SVG.appendChild(axis)
+        group.appendChild(axis)
     }
 
     drawAxis(
@@ -49,7 +63,7 @@ function drawLayout() {
         tick.setAttribute('stroke', X_AXIS_COLOR)
         tick.setAttribute('stroke-width', '0.005')
         tick.id = `x-tick-${i}`
-        SVG.appendChild(tick)
+        group.appendChild(tick)
     }
 
     for (
@@ -65,15 +79,18 @@ function drawLayout() {
         tick.setAttribute('stroke', Y_AXIS_COLOR)
         tick.setAttribute('stroke-width', '0.005')
         tick.id = `y-tick-${i}`
-        SVG.appendChild(tick)
+        group.appendChild(tick)
     }
+
+    SVG.appendChild(group)
 }
 
 function addEventListeners() {
     let isMouseDown = false
 
-    SVG.addEventListener('mousedown', function () {
+    SVG.addEventListener('mousedown', function (event) {
         isMouseDown = true
+        drawIterations(event.clientX, event.clientY)
     })
     SVG.addEventListener('mouseup', function () {
         isMouseDown = false
@@ -89,9 +106,16 @@ addEventListeners()
 drawLayout()
 
 const cursorDot = document.createElementNS(NS, 'circle')
-cursorDot.setAttribute('r', '0.1')
+cursorDot.setAttribute('r', DOT_RADIUS.toString())
 cursorDot.setAttribute('fill', 'red')
 SVG.appendChild(cursorDot)
+
+const path = document.createElementNS(NS, 'polyline')
+path.setAttribute('stroke', 'black')
+path.setAttribute('stroke-width', '0.01')
+path.setAttribute('fill', 'none')
+
+SVG.appendChild(path)
 
 function drawIterations(clickX, clickY) {
     const svgPoint = SVG.createSVGPoint()
@@ -99,7 +123,22 @@ function drawIterations(clickX, clickY) {
     svgPoint.y = clickY
 
     const domainPoint = svgPoint.matrixTransform(SVG.getScreenCTM().inverse())
-    console.log(JSON.stringify({ x: domainPoint.x, y: domainPoint.y }))
-    cursorDot.setAttribute('cx', domainPoint.x.toString())
-    cursorDot.setAttribute('cy', domainPoint.y.toString())
+
+    const real = domainPoint.x
+    const imaginary = domainPoint.y
+
+    cursorDot.setAttribute('cx', real.toString())
+    cursorDot.setAttribute('cy', imaginary.toString())
+
+    const results = mandelbrot(
+        new Complex(real, imaginary),
+        Complex.zero(),
+        MAX_ITERATIONS
+    )
+
+    let pathAttribute = `${real},${imaginary}`
+    for (let i = 0; i < results.length; i++) {
+        pathAttribute += ` ${results[i].real},${results[i].imaginary}`
+    }
+    path.setAttribute('points', pathAttribute)
 }
