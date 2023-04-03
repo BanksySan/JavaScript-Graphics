@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Mandelbrot Set</title>
+</head>
+<body>
+<label for="res-slider">Resolution:</label>
+<input
+  id="res-slider"
+  max="1000"
+  min="100"
+  step="100"
+  type="range"
+  value="500"
+/>
+<svg height="100%" id="svg" width="100%"></svg>
+<script>
+  const svg = document.getElementById("svg");
+
+  let width = svg.clientWidth;
+  let height = svg.clientHeight;
+
+  const xmin = -2;
+  const xmax = 1;
+  const ymin = -1.5;
+  const ymax = 1.5;
+
+  let maxIterations = 100;
+
+  const resSlider = document.getElementById("res-slider");
+  resSlider.addEventListener("input", function() {
+    width = parseFloat(resSlider.value);
+    height = parseFloat(resSlider.value);
+    drawMandelbrotSet();
+  });
+
+  function drawMandelbrotSet() {
+    svg.innerHTML = "";
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < height; y++) {
+        const cx = xmin + ((xmax - xmin) * x) / width;
+        const cy = ymin + ((ymax - ymin) * y) / height;
+        let zx = 0;
+        let zy = 0;
+        let iteration = 0;
+        while (
+          iteration < maxIterations &&
+          zx * zx + zy * zy < 4
+          ) {
+          const tmp = zx * zx - zy * zy + cx;
+          zy = 2 * zx * zy + cy;
+          zx = tmp;
+          iteration++;
+        }
+        const color =
+          iteration === maxIterations
+            ? "#000"
+            : `hsl(${iteration * 4}, 100%, 50%)`;
+        const rect = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "rect"
+        );
+        rect.setAttributeNS(null, "x", x);
+        rect.setAttributeNS(null, "y", y);
+        rect.setAttributeNS(null, "width", 1);
+        rect.setAttributeNS(null, "height", 1);
+        rect.setAttributeNS(null, "fill", color);
+        svg.appendChild(rect);
+      }
+    }
+  }
+
+  drawMandelbrotSet();
+</script>
+</body>
+</html>

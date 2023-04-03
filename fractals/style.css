@@ -1,0 +1,8 @@
+#canvas {
+    border: 1px solid grey;
+}
+
+#debug {
+    font-family: Consolas, monospace;
+    font-size: small;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Julia Set</title>
+  <style>
+      canvas {
+          width: 100%;
+          height: 100%;
+      }
+  </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  const width = canvas.width;
+  const height = canvas.height;
+
+  const cReal = -0.7;
+  const cImaginary = 0.27015;
+
+  const xmin = -1.5;
+  const xmax = 1.5;
+  const ymin = -1.5;
+  const ymax = 1.5;
+
+  const maxIterations = 100;
+
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      let zx = xmin + ((xmax - xmin) * x) / width;
+      let zy = ymin + ((ymax - ymin) * y) / height;
+      let iteration = 0;
+      let zx2 = zx * zx;
+      let zy2 = zy * zy;
+      while (iteration < maxIterations && zx2 + zy2 < 4) {
+        const tmp = zx2 - zy2 + cReal;
+        zy = 2 * zx * zy + cImaginary;
+        zx = tmp;
+        zx2 = zx * zx;
+        zy2 = zy * zy;
+        iteration++;
+      }
+      ctx.fillStyle = iteration === maxIterations
+        ? "#000"
+        : `hsl(${iteration * 4}, 100%, 50%)`;
+      ctx.fillRect(x, y, 1, 1);
+    }
+  }
+</script>
+</body>
+</html>
