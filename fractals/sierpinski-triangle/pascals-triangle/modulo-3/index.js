@@ -1,5 +1,7 @@
 const SVG = document.getElementById('pascal');
 const NS = 'http://www.w3.org/2000/svg';
+const MAX_MODULO = 8;
+const groups = createGroups(MAX_MODULO);
 
 function buildTriangle(n) {
     const triangle = new Array(n);
@@ -18,7 +20,34 @@ function buildTriangle(n) {
     return triangle;
 }
 
+function calculateColour(value, maxModulo) {
+    let colour = (BigInt(360) / BigInt(maxModulo - 1)) * value;
+    return `hsl(${colour}, 100%, 50%)`;
+}
+
+function createGroups(maxModulo) {
+    const groups = new Array(maxModulo);
+    for (let i = 0; i < groups.length; i++) {
+        const g = document.createElementNS(NS, 'g');
+        g.id = `modulo-${i}`;
+        groups[i] = g;
+    }
+    return groups;
+}
+
+function toggle(modulo) {
+    const group = groups[modulo];
+    if (group.style?.display === 'none') group.style.display = 'block';
+    else group.style.display = 'none';
+    const state = {};
+    for (let i = 0; i < groups.length; i++) {
+        state[groups[i].id] = groups[i].style?.display !== 'none';
+    }
+    console.dir(JSON.stringify(state, null, 2));
+}
+
 function generatePoints(svg, triangles) {
+    console.log(groups.length);
     const top = svg.viewBox.baseVal.y;
     const pixelSize = svg.viewBox.baseVal.height / triangles.length;
     for (let i = 0; i < triangles.length; i++) {
@@ -36,16 +65,17 @@ function generatePoints(svg, triangles) {
             );
             point.setAttribute('width', pixelSize.toString());
             point.setAttribute('height', pixelSize.toString());
-            point.setAttribute('x-value', triangles[i][j].toString());
-            point.setAttribute(
-                'fill',
-                triangles[i][j] % BigInt(2) === BigInt(0) ? 'black' : 'white'
-            );
-            lineGroup.appendChild(point);
-        }
+            let value = BigInt(triangles[i][j]);
 
-        SVG.appendChild(lineGroup);
+            let modulo = value % BigInt(MAX_MODULO);
+            point.setAttribute('x-value', value.toString());
+            point.setAttribute('x-modulo', modulo.toString());
+            let colour = calculateColour(BigInt(3), MAX_MODULO);
+            point.setAttribute('fill', calculateColour(modulo, MAX_MODULO));
+            groups[modulo].appendChild(point);
+        }
     }
+    for (let i = 0; i < groups.length; i++) SVG.appendChild(groups[i]);
 }
 
-generatePoints(SVG, buildTriangle(500));
+generatePoints(SVG, buildTriangle(1000));
