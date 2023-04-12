@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SVG Helper Demo</title>
+  <link href="helpers.css" rel="stylesheet"/>
+</head>
+<body>
+<h1>SVG Helper Demo</h1>
+
+<svg id="axes-creation"
+     viewBox="-5 -5 10 10">
+
+</svg>
+<script src="./svg.js" type="module"></script>
+<script type="module">
+  import {createAxis} from "./svg.js";
+  const pX1 = new DOMPoint(-4, 0);
+  const pX2 = new DOMPoint(4, 0);
+  const pY1 = new DOMPoint(0, -4)
+  const pY2 = new DOMPoint(0, 4)
+  const SVG = document.getElementById('axes-creation');
+  const xAxis = createAxis('x-axis', pX1, pX2, 10, 0.025, 'blue');
+  const yAxis = createAxis('y-axis', pY1, pY2, 20, 0.05, 'green');
+
+  SVG.appendChild(xAxis);
+  SVG.appendChild(yAxis);
+</script>
+</body>
+</html>

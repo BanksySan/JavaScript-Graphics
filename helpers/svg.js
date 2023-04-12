@@ -1,9 +1,11 @@
+import { lerp } from './vector.js';
+
 const NS = 'http://www.w3.org/2000/svg';
 
 function createAxis(id, p1, p2, tickInterval, strokeWidth, strokeColour) {
-    const axesGroup = document.createElementNS(NS, 'g');
-    axesGroup.id = id;
-    axesGroup.classList.add('axis');
+    const axisGroup = document.createElementNS(NS, 'g');
+    axisGroup.id = id;
+    axisGroup.classList.add('axis');
 
     const axis = document.createElementNS(NS, 'line');
 
@@ -14,9 +16,22 @@ function createAxis(id, p1, p2, tickInterval, strokeWidth, strokeColour) {
     axis.setAttribute('stroke', strokeColour);
     axis.setAttribute('stroke-width', strokeWidth);
 
-    axesGroup.appendChild(axis);
+    axisGroup.appendChild(axis);
 
-    return axesGroup;
+    const tickGroup = document.createElementNS(NS, 'g');
+    tickGroup.id = `${id}-tick-group`;
+    tickGroup.classList.add('ticks');
+
+    const step = 1 / tickInterval;
+
+    for (let t = 0; t < 1; t += step) {
+        const tickPoint = lerp(p1, p2, t);
+        const tick = createDot(null, strokeWidth * 1.1, 'black', tickPoint);
+        tickGroup.appendChild(tick);
+    }
+
+    axisGroup.appendChild(tickGroup);
+    return axisGroup;
 }
 
 function createDot(id, radius, colour, centre) {
@@ -25,6 +40,7 @@ function createDot(id, radius, colour, centre) {
     dot.setAttribute('cy', centre.y.toString());
     dot.setAttribute('r', radius.toString());
     dot.setAttribute('fill', colour);
+    if (id) dot.id = id;
     return dot;
 }
 
