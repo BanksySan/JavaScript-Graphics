@@ -1,6 +1,7 @@
 {
   "name": "javascript-graphics",
   "version": "1.0.0",
+  "type": "module",
   "dependencies": {},
   "devDependencies": {
     "prettier": "^2.8.7"
