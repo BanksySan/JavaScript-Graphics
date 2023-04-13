@@ -58,4 +58,46 @@ function convertToSvgSpace(point, svg) {
     return DOMPoint.fromPoint(point).matrixTransform(inverseContextMatrix);
 }
 
-export { NS, createAxis, createDot, convertToSvgSpace };
+function drawXYAxisWithRings(x, y, width, height) {
+    const group = document.createElementNS(NS, 'g');
+    group.classList.add('axes');
+
+    group.appendChild(
+        createAxis(
+            'x-axis',
+            new DOMPoint(x, 0),
+            new DOMPoint(x + width, 0),
+            1,
+            0.01,
+            'blue'
+        )
+    );
+    group.appendChild(
+        createAxis(
+            'y-axis',
+            new DOMPoint(0, y),
+            new DOMPoint(0, y + height),
+            1,
+            0.01,
+            'green'
+        )
+    );
+
+    for (let i = 0; i < 4; i += 0.25) {
+        const isInteger = i % 1 === 0;
+
+        const circle = document.createElementNS(NS, 'circle');
+        circle.setAttribute('r', i.toString());
+        circle.setAttribute('stroke-width', isInteger ? '0.005' : '0.001');
+        circle.setAttribute('stroke', isInteger ? 'black' : 'grey');
+        circle.setAttribute('fill', 'none');
+        circle.setAttribute('cx', '0');
+        circle.setAttribute('cy', '0');
+
+        group.appendChild(circle);
+    }
+
+    return group;
+}
+
+export { NS, createAxis, createDot, convertToSvgSpace, drawXYAxisWithRings };
