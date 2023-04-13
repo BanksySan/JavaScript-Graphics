@@ -44,4 +44,18 @@ function createDot(id, radius, colour, centre) {
     return dot;
 }
 
-export { NS, createAxis, createDot };
+function convertToSvgSpace(point, svg) {
+    if (!(svg instanceof SVGElement)) {
+        throw new Error(
+            `Expected svg to be an SVGElement, Actual:  '${
+                svg?.constructor.name ?? 'null/undefined'
+            }'`
+        );
+    }
+
+    const contextMatrix = svg.getScreenCTM();
+    const inverseContextMatrix = contextMatrix.inverse();
+    return DOMPoint.fromPoint(point).matrixTransform(inverseContextMatrix);
+}
+
+export { NS, createAxis, createDot, convertToSvgSpace };
