@@ -60,11 +60,20 @@ export class Complex {
         );
     }
 
+    /***
+     * Returns a string in the form <code>a ± bi</code>.
+     * @returns {string}
+     */
     toString() {
         const operator = this.imaginary < 0 ? '-' : '+';
         return `${this.real} ${operator} ${Math.abs(this.imaginary)}i`;
     }
 
+    /***
+     * Both <i>real</i> and <i>imaginary</i> parts are equal.
+     * @param other
+     * @returns {boolean}
+     */
     equals(other) {
         return this.real === other.real && this.imaginary === other.imaginary;
     }
