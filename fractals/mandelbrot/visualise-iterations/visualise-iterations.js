@@ -10,12 +10,11 @@ import { mandelbrot } from '../../fractals.js';
 const SVG = document.getElementById('mandelbrot-iterations');
 let maxIterations = 100;
 
-let mouseDown = false;
-let path = null;
 console.log('START');
 
 SVG.appendChild(drawXYAxisWithRings(-2, -2, 4, 4));
 
+let mouseDown = false;
 (function addEventListeners() {
     SVG.addEventListener('mousedown', (e) => {
         mouseDown = true;
@@ -33,16 +32,15 @@ SVG.appendChild(drawXYAxisWithRings(-2, -2, 4, 4));
     });
 })();
 
+let path = document.createElementNS(NS, 'polyline');
+path.setAttribute('stroke', 'black');
+path.setAttribute('stroke-width', '0.005');
+path.setAttribute('fill', 'none');
+SVG.appendChild(path);
+
 function handleMouseClick(x, y) {
     const clickPoint = new DOMPoint(x, y, 0);
     const svgPoint = convertToSvgSpace(clickPoint, SVG);
-    if (!path) {
-        path = document.createElementNS(NS, 'polyline');
-        path.setAttribute('stroke', 'black');
-        path.setAttribute('stroke-width', '0.005');
-        path.setAttribute('fill', 'none');
-        SVG.appendChild(path);
-    }
 
     const results = mandelbrot(
         new Complex(svgPoint.x, svgPoint.y),
