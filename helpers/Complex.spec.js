@@ -132,6 +132,8 @@ describe('Arithmetic', () => {
             expect(actual.imaginary).toBe(expectedImaginary);
         });
     });
+
+    describe('toTheta() should return correct angle.', () => {});
 });
 
 describe('toString()', () => {

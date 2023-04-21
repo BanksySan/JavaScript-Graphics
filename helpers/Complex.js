@@ -61,6 +61,15 @@ export class Complex {
     }
 
     /***
+     * Calculate angle portion of the polar representation.
+     * <code>tan(θ) = imaginary/real</code>
+     * @returns {number}
+     */
+    theta() {
+        return Math.atan(this.imaginary / this.real);
+    }
+
+    /***
      * Returns a string in the form <code>a ± bi</code>.
      * @returns {string}
      */
