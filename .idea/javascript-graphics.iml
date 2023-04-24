@@ -10,5 +10,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="gl-matrix" level="application" />
     <orderEntry type="library" name="Vitest" level="project" />
+    <orderEntry type="library" name="gl-matrix" level="application" />
   </component>
 </module>
