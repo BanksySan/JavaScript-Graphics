@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="WebGL Hello World" type="JavascriptDebugType" uri="http://localhost:63342/JavaScript-Graphics/web-gl/hello-world/index.html" useBuiltInWebServerPort="true">
+  <configuration default="false" name="WebGL Hello World" type="JavascriptDebugType" folderName="Indigo Code Tutorials" uri="http://localhost:63342/JavaScript-Graphics/web-gl/hello-world/index.html" useBuiltInWebServerPort="true">
     <method v="2" />
   </configuration>
 </component>

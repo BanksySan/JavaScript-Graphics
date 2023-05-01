@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="WebGL Rotating Textured Cube" type="JavascriptDebugType" uri="http://localhost:63342/JavaScript-Graphics/web-gl/tutorial/textured-cube/index.html" useFirstLineBreakpoints="true" useBuiltInWebServerPort="true">
+  <configuration default="false" name="WebGL Rotating Textured Cube" type="JavascriptDebugType" folderName="Indigo Code Tutorials" uri="http://localhost:63342/JavaScript-Graphics/web-gl/tutorial/textured-cube/index.html" useFirstLineBreakpoints="true" useBuiltInWebServerPort="true">
     <method v="2" />
   </configuration>
 </component>
