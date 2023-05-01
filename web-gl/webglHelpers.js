@@ -66,3 +66,18 @@ export function createProgram(gl, vertexShaderText, fragmentShaderText) {
 
     return program;
 }
+
+/**
+ * Fetch the fragment and vertex shader text from external files.
+ * @param vertexShaderPath
+ * @param fragmentShaderPath
+ * @returns {Promise<{vertexShaderText: string, fragmentShaderText: string}>}
+ */
+export async function fetchShaderTexts(vertexShaderPath, fragmentShaderPath) {
+    const vertexShaderText = await (await fetch(vertexShaderPath)).text();
+    const fragmentShaderText = await (await fetch(fragmentShaderPath)).text();
+    return {
+        vertexShaderText,
+        fragmentShaderText,
+    };
+}
