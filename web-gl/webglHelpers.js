@@ -32,8 +32,9 @@ export function createProgram(gl, vertexShaderText, fragmentShaderText) {
         compileStatus.vertexStatus !== true ||
         compileStatus.fragmentStatus !== true
     ) {
-        console.error('Failed to compile.  Exiting.');
-        return;
+        let error = new Error('Failed to compile.  Exiting.');
+        error.compileStatus = compileStatus;
+        throw error;
     }
 
     console.log('Create program');
