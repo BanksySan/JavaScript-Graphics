@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="WebGL Mandelbrot Tutorial" type="JavascriptDebugType" folderName="Indigo Code Tutorials" uri="http://localhost:63342/JavaScript-Graphics/web-gl/tutorial/mandelbrot/index.html" useBuiltInWebServerPort="true">
+    <method v="2" />
+  </configuration>
+</component>
