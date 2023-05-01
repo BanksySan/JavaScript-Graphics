@@ -1,14 +1,15 @@
 console.log('Starting Mandelbrot tutorial');
 import { createProgram, fetchShaderTexts } from '../../webglHelpers.js';
-
+let enableFpsLogging = false;
 const CANVAS = document.getElementById('mandelbrot-webgl-tutorial');
 const gl = CANVAS.getContext('webgl');
+
 // Set CPU-side variables for the shader variables.
 let viewportDimensions = [CANVAS.clientWidth, CANVAS.clientHeight];
-const minI = -2.0;
-const maxI = 2.0;
-const minR = -2.0;
-const maxR = 2.0;
+let minI = -2.0;
+let maxI = 2.0;
+let minR = -2.0;
+let maxR = 2.0;
 
 resizeGlCanvas(window);
 const shaderTexts = await fetchShaderTexts(
@@ -66,9 +67,67 @@ function resizeGlCanvas(window) {
     gl.viewport(0, 0, CANVAS.width, CANVAS.height);
 }
 
+let dragging = false;
+
+function onMouseMove(args) {
+    if (dragging) {
+        const iRange = maxI - minI;
+        const rRange = maxR - minR;
+
+        const iDelta = (args.movementY / CANVAS.clientHeight) * iRange;
+        const rDelta = (args.movementX / CANVAS.clientWidth) * rRange;
+
+        minI += iDelta;
+        maxI += iDelta;
+        minR -= rDelta;
+        maxR -= rDelta;
+    }
+}
+
 window.addEventListener('resize', (args) => resizeGlCanvas(args.target));
+window.addEventListener('mousedown', (args) => {
+    dragging = true;
+});
+window.addEventListener('mouseup', (args) => {
+    dragging = false;
+});
+window.addEventListener('mousemove', (args) => {
+    onMouseMove(args);
+});
+window.addEventListener('wheel', (args) => {
+    const imaginaryRange = maxI - minI;
+    const newRange =
+        args.deltaY < 0 ? imaginaryRange * 0.95 : imaginaryRange * 1.05;
+    const halfDelta = (newRange - imaginaryRange) * 0.5;
+    minI += halfDelta;
+    maxI -= halfDelta;
+
+    minR += halfDelta;
+    maxR -= halfDelta;
+});
+
+let thisFrameTime = performance.now();
+let prevFrameTime;
+let dt;
+let frames = new Array(64).fill(0);
+
+let frameNumber = 0;
 
 (function loop() {
+    prevFrameTime = thisFrameTime;
+    thisFrameTime = performance.now();
+    dt = thisFrameTime - prevFrameTime;
+    if (enableFpsLogging) {
+        if (frameNumber === frames.length) {
+            const average = frames.reduce((accumulator, current) => {
+                return accumulator + current;
+            });
+            console.log('FPS', average / (1000 * frames.length));
+            frameNumber = 0;
+        }
+        frames[frameNumber] = dt;
+        frameNumber++;
+    }
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
 
