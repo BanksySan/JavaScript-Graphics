@@ -152,8 +152,13 @@ function replacer(key, value) {
  * Add a flat mesh that fills the screen.
  * @param program {WebGLProgram}
  * @param webGlContext {WebGLRenderingContext | WebGL2RenderingContext}
+ * @param vertexPositionAttributeName {string | null}
  */
-export function initialiseMesh(program, webGlContext) {
+export function initialiseMesh(
+    program,
+    webGlContext,
+    vertexPositionAttributeName = 'vertexPosition'
+) {
     const vertexBuffer = webGlContext.createBuffer();
     const vertices = new Float32Array([
         ...[-1.0, 1.0],
