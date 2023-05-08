@@ -1,6 +1,6 @@
-import { NS, drawXYAxisWithRings } from '../../../helpers/svg.js';
-import { Complex } from '../../../helpers/Complex.js';
-import { mandelbrot } from '../../fractals.js';
+import { NS, drawXYAxisWithRings } from '../../../../helpers/svg.js';
+import { Complex } from '../../../../helpers/Complex.js';
+import { mandelbrot } from '../../../fractals.js';
 
 const PIXEL_SIZE = 0.0025;
 const SVG = document.getElementById('mandelbrot-fractal');

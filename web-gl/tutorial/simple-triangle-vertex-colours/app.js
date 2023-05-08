@@ -1,6 +1,4 @@
-import { createProgram } from '../../webglHelpers.js';
-
-export const FOO = 123;
+import { createProgram } from '../../../helpers/webglHelpers.js';
 
 const vertexShaderText = [
     'precision mediump float;',

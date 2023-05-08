@@ -3,9 +3,9 @@ import {
     convertToSvgSpace,
     createAxis,
     drawXYAxisWithRings,
-} from '../../../helpers/svg.js';
-import { Complex } from '../../../helpers/Complex.js';
-import { mandelbrot } from '../../fractals.js';
+} from '../../../../helpers/svg.js';
+import { Complex } from '../../../../helpers/Complex.js';
+import { mandelbrot } from '../../../fractals.js';
 
 const SVG = document.getElementById('mandelbrot-iterations');
 let maxIterations = 100;

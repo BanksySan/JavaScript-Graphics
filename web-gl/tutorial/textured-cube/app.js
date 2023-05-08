@@ -1,4 +1,7 @@
-import { createProgram, fetchShaderTexts } from '../../webglHelpers.js';
+import {
+    createProgram,
+    fetchShaderTexts,
+} from '../../../helpers/webglHelpers.js';
 const { mat4, mul } = glMatrix;
 
 const { vertexShaderText, fragmentShaderText } = await fetchShaderTexts(

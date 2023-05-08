@@ -1,9 +1,22 @@
 console.log('Starting Mandelbrot tutorial');
-import { createProgram, fetchShaderTexts } from '../../webglHelpers.js';
+import {
+    createProgram,
+    fetchShaderTexts,
+} from '../../../helpers/webglHelpers.js';
 let enableFpsLogging = false;
 const CANVAS = document.getElementById('mandelbrot-webgl-tutorial');
 const gl = CANVAS.getContext('webgl');
+const shaderTexts = await fetchShaderTexts(
+    './tutorial.mandelbrot.vert',
+    './tutorial.mandelbrot.frag'
+);
+const program = createProgram(
+    gl,
+    shaderTexts.vertexShaderText,
+    shaderTexts.fragmentShaderText
+);
 
+gl.useProgram(program);
 // Set CPU-side variables for the shader variables.
 let viewportDimensions = [CANVAS.clientWidth, CANVAS.clientHeight];
 let minI = -2.0;
@@ -12,18 +25,6 @@ let minR = -2.0;
 let maxR = 2.0;
 
 resizeGlCanvas(window);
-const shaderTexts = await fetchShaderTexts(
-    './tutorial.mandelbrot.vert',
-    './tutorial.mandelbrot.frag'
-);
-
-const program = createProgram(
-    gl,
-    shaderTexts.vertexShaderText,
-    shaderTexts.fragmentShaderText
-);
-
-gl.useProgram(program);
 
 const uniforms = {
     viewportDimensions: gl.getUniformLocation(program, 'viewportDimensions'),
