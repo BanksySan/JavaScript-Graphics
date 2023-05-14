@@ -178,7 +178,7 @@ export function initialiseMesh(
 
     const vertexPositionAttributeLocation = webGlContext.getAttribLocation(
         program,
-        'vertexPosition'
+        vertexPositionAttributeName
     );
 
     webGlContext.vertexAttribPointer(

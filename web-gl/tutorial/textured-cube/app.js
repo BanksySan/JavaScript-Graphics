@@ -26,7 +26,7 @@ const { vertexShaderText, fragmentShaderText } = await fetchShaderTexts(
     console.log('Compilation', true);
     console.log('Creating buffer');
 
-    // [x, y, x, ...[u, v]]
+    // INFO: [x, y, x, ...[u, v]]
     const boxTopVertices = [
         ...[-1.0, 1.0, -1.0, ...[0, 0]],
         ...[-1.0, 1.0, 1.0, ...[0, 1]],
