@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="WebGL: Harmonic Wave" type="JavascriptDebugType" folderName="WebGL" uri="http://localhost:63343/JavaScript-Graphics/web-gl/harmonic-wave/harmonic-wave.html" useFirstLineBreakpoints="true" useBuiltInWebServerPort="true">
+    <method v="2" />
+  </configuration>
+</component>
