@@ -10,8 +10,8 @@ gl.clearColor(1.0, 0.0, 1.0, 1.0);
 gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 const shaderTexts = await fetchShaderTexts(
-    './checkerboard.vert.glsl',
-    './checkerboard.frag.glsl'
+    './detached-meshes.vert.glsl',
+    './detached-meshes.frag.glsl'
 );
 const program = createProgram(
     gl,
@@ -45,4 +45,9 @@ gl.vertexAttribPointer(
     0
 );
 gl.enableVertexAttribArray(vertexAttributeLocation);
+
+const canvasSizeLocation = gl.getUniformLocation(program, 'CANVAS_SIZE');
+console.assert(canvasSizeLocation !== 0);
+gl.uniform2f(canvasSizeLocation, CANVAS.width, CANVAS.height);
+
 gl.drawArrays(gl.TRIANGLES, 0, triangleVertexData.length);
