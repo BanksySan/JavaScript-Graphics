@@ -18,7 +18,7 @@ gl.cullFace(gl.BACK);
 gl.frontFace(gl.CCW);
 gl.useProgram(program);
 
-const halfWidth = 0.75;
+const halfWidth = 0.5;
 
 const VERTICES = new Float32Array([
     ...[-halfWidth, -halfWidth, -halfWidth], // 0
@@ -74,4 +74,14 @@ gl.uniform2f(
     CANVAS.clientHeight
 );
 
-gl.drawElements(gl.TRIANGLES, VERTEX_INDICES.length, gl.UNSIGNED_SHORT, 0);
+window.djbSpeed = 0.5;
+
+const timeLocation = gl.getUniformLocation(program, 'NOW');
+const speedLocation = gl.getUniformLocation(program, 'SPEED');
+
+(function loop() {
+    gl.uniform1f(speedLocation, window.djbSpeed);
+    gl.uniform1f(timeLocation, performance.now());
+    gl.drawElements(gl.TRIANGLES, VERTEX_INDICES.length, gl.UNSIGNED_SHORT, 0);
+    requestAnimationFrame(loop);
+})();
