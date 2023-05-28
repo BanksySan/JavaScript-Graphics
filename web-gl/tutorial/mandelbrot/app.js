@@ -3,6 +3,7 @@ import {
     createProgram,
     fetchShaderTexts,
 } from '../../../helpers/webglHelpers.js';
+
 let enableFpsLogging = false;
 const CANVAS = document.getElementById('mandelbrot-webgl-tutorial');
 const gl = CANVAS.getContext('webgl');
@@ -86,10 +87,10 @@ function onMouseMove(args) {
 }
 
 window.addEventListener('resize', (args) => resizeGlCanvas(args.target));
-window.addEventListener('mousedown', (args) => {
+window.addEventListener('mousedown', () => {
     dragging = true;
 });
-window.addEventListener('mouseup', (args) => {
+window.addEventListener('mouseup', () => {
     dragging = false;
 });
 window.addEventListener('mousemove', (args) => {

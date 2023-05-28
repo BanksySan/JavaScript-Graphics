@@ -1,8 +1,7 @@
 import {
-    NS,
     convertToSvgSpace,
-    createAxis,
     drawXYAxisWithRings,
+    NS,
 } from '../../../../helpers/svg.js';
 import { Complex } from '../../../../helpers/Complex.js';
 import { mandelbrot } from '../../../fractals.js';

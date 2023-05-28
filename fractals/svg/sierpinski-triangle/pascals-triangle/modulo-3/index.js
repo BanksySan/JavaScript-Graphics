@@ -35,17 +35,6 @@ function createGroups(maxModulo) {
     return groups;
 }
 
-function toggle(modulo) {
-    const group = groups[modulo];
-    if (group.style?.display === 'none') group.style.display = 'block';
-    else group.style.display = 'none';
-    const state = {};
-    for (let i = 0; i < groups.length; i++) {
-        state[groups[i].id] = groups[i].style?.display !== 'none';
-    }
-    console.dir(JSON.stringify(state, null, 2));
-}
-
 function generatePoints(svg, triangles) {
     console.log(groups.length);
     const top = svg.viewBox.baseVal.y;
@@ -70,7 +59,6 @@ function generatePoints(svg, triangles) {
             let modulo = value % BigInt(MAX_MODULO);
             point.setAttribute('x-value', value.toString());
             point.setAttribute('x-modulo', modulo.toString());
-            let colour = calculateColour(BigInt(3), MAX_MODULO);
             point.setAttribute('fill', calculateColour(modulo, MAX_MODULO));
             groups[modulo].appendChild(point);
         }

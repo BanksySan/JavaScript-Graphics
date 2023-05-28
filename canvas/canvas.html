@@ -1,64 +1,81 @@
 <!DOCTYPE html>
-<html lang='en'>
-<head>
-    <meta charset='UTF-8'>
-    <title>Canvas Size</title>
-</head>
-<body>
-<h1>Canvas Size</h1>
-<canvas id='canvas-size-test-a' width='512' height='512'
-        style='width: 512px; height: 512px;'></canvas>
-<canvas id='canvas-size-test-b' width='256' height='256'
-        style='width: 512px; height: 512px;'></canvas>
-<canvas id='canvas-size-test-c' width='256' height='256'
-        style='width: 256px; height: 256px;'></canvas>
-<canvas id='canvas-size-test-d' width='512' height='256'
-        style='width: 256px; height: 256px;'></canvas>
-</body>
-<script>
-    /**
-     * Inserts <code>newNode</code> after the <code>referenceNode</code>
-     * Takem from <a href='https://stackoverflow.com/a/4793630'>https://stackoverflow.com/a/4793630</a>.
-     * @param referenceNode {HTMLElement}
-     * @param newNode {HTMLElement}
-     */
-    function insertAfter(referenceNode, newNode) {
-        referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-    }
-
-    const canvases = {};
-
-    const debug = [];
-
-    for(const id of [
-        'canvas-size-test-a',
-        'canvas-size-test-b',
-        'canvas-size-test-c',
-        'canvas-size-test-d',
-    ]) {
-        const element = document.getElementById(id);
-        const context = element.getContext('2d');
-
-        canvases[id] = {
-            element: element,
-            context: context
-        };
-
-        const img = new Image();
-        img.src = './uv-map.jpg';
-        img.onload = () => {
-            context.drawImage(img, 0, 0, 512, 512);
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Canvas Size</title>
+    </head>
+    <body>
+        <h1>Canvas Size</h1>
+        <canvas
+            id="canvas-size-test-a"
+            width="512"
+            height="512"
+            style="width: 512px; height: 512px"
+        ></canvas>
+        <canvas
+            id="canvas-size-test-b"
+            width="256"
+            height="256"
+            style="width: 512px; height: 512px"
+        ></canvas>
+        <canvas
+            id="canvas-size-test-c"
+            width="256"
+            height="256"
+            style="width: 256px; height: 256px"
+        ></canvas>
+        <canvas
+            id="canvas-size-test-d"
+            width="512"
+            height="256"
+            style="width: 256px; height: 256px"
+        ></canvas>
+    </body>
+    <script>
+        /**
+         * Inserts <code>newNode</code> after the <code>referenceNode</code>
+         * Takem from <a href='https://stackoverflow.com/a/4793630'>https://stackoverflow.com/a/4793630</a>.
+         * @param referenceNode {HTMLElement}
+         * @param newNode {HTMLElement}
+         */
+        function insertAfter(referenceNode, newNode) {
+            referenceNode.parentNode.insertBefore(
+                newNode,
+                referenceNode.nextSibling
+            );
         }
 
-        debug.push({
-            id,
-            clientDimensions: `[${element.clientWidth},${element.clientHeight}]`,
-            dimensions: `[${element.width},${element.height}]`
-        });
-    }
+        const canvases = {};
 
-    console.table(debug);
+        const debug = [];
 
+        for (const id of [
+            'canvas-size-test-a',
+            'canvas-size-test-b',
+            'canvas-size-test-c',
+            'canvas-size-test-d',
+        ]) {
+            const element = document.getElementById(id);
+            const context = element.getContext('2d');
 
-</script>
+            canvases[id] = {
+                element: element,
+                context: context,
+            };
+
+            const img = new Image();
+            img.src = './uv-map.jpg';
+            img.onload = () => {
+                context.drawImage(img, 0, 0, 512, 512);
+            };
+
+            debug.push({
+                id,
+                clientDimensions: `[${element.clientWidth},${element.clientHeight}]`,
+                dimensions: `[${element.width},${element.height}]`,
+            });
+        }
+
+        console.table(debug);
+    </script>
 </html>

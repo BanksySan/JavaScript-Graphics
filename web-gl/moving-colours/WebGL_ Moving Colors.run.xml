@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="WebGL: Moving Colors" type="JavascriptDebugType" folderName="WebGL" engineId="37cae5b9-e8b2-4949-9172-aafa37fbc09c" uri="http://localhost:63342/javascript-graphics/web-gl/moving-colours/moving-colors.html" useFirstLineBreakpoints="true" useBuiltInWebServerPort="true">
+    <method v="2" />
+  </configuration>
+</component>

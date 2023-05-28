@@ -1,7 +1,6 @@
 const SVG = document.getElementById('pascal');
 const NS = 'http://www.w3.org/2000/svg';
 const ODD = false;
-const EVEN = true;
 
 function buildTriangle(n) {
     const triangle = new Array(n);
@@ -39,10 +38,7 @@ function generatePoints(svg, triangles) {
             point.setAttribute('width', pixelSize.toString());
             point.setAttribute('height', pixelSize.toString());
             point.setAttribute('x-value', triangles[i][j].toString());
-            point.setAttribute(
-                'fill',
-                triangles[i][j] ? 'black' : 'white'
-            );
+            point.setAttribute('fill', triangles[i][j] ? 'black' : 'white');
             lineGroup.appendChild(point);
         }
 

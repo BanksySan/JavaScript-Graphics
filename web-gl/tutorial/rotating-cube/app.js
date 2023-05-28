@@ -1,5 +1,7 @@
+/* global glMatrix */
 import { createProgram } from '../../../helpers/webglHelpers.js';
-const { mat4, mul } = glMatrix;
+
+const { mat4 } = glMatrix;
 
 const vertexShaderText = [
     'precision mediump float;',

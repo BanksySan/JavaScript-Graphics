@@ -1,8 +1,10 @@
+/* global glMatrix */
 import {
     createProgram,
     fetchShaderTexts,
 } from '../../../helpers/webglHelpers.js';
-const { mat4, mul } = glMatrix;
+
+const { mat4 } = glMatrix;
 
 const { vertexShaderText, fragmentShaderText } = await fetchShaderTexts(
     './vertexShader.glsl',

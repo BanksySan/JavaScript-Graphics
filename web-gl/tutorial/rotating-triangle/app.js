@@ -1,4 +1,7 @@
+/* global glMatrix */
+
 import { createProgram } from '../../../helpers/webglHelpers.js';
+
 const { mat4 } = glMatrix;
 
 const vertexShaderText = [

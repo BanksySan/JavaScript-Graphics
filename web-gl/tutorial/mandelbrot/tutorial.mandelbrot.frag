@@ -21,9 +21,9 @@ void main()
     vec2 z = c;
     float iterations = 0.0;
     float maxIterations = 4000.0;
-    const int imaxIterations = 4000;
+    const int iMaxIterations = 4000;
 
-    for (int i = 0; i < imaxIterations; i++) {
+    for (int i = 0; i < iMaxIterations; i++) {
         float t = 2.0 * z.x * z.y + c.y;
         z.x = z.x * z.x - z.y * z.y + c.x;
         z.y = t;

@@ -1,10 +1,21 @@
-import { fetchShaderTexts, initialiseMesh, createProgram } from '../../helpers/webglHelpers.js';
+import {
+    fetchShaderTexts,
+    initialiseMesh,
+    createProgram,
+} from '../../helpers/webglHelpers.js';
 
-const SHADER_TEXT_PROMISE = fetchShaderTexts('./moving-colors.vert.glsl', './moving-colors.frag.glsl');
+const SHADER_TEXT_PROMISE = fetchShaderTexts(
+    './moving-colors.vert.glsl',
+    './moving-colors.frag.glsl'
+);
 const CANVAS = document.getElementById('webgl-moving-colors');
 const gl = CANVAS.getContext('webgl2');
 const SHADER_TEXTS = await SHADER_TEXT_PROMISE;
-const program = createProgram(gl, SHADER_TEXTS.vertexShaderText, SHADER_TEXTS.fragmentShaderText);
+const program = createProgram(
+    gl,
+    SHADER_TEXTS.vertexShaderText,
+    SHADER_TEXTS.fragmentShaderText
+);
 
 gl.useProgram(program);
 
@@ -14,7 +25,7 @@ const nowLocation = gl.getUniformLocation(program, 'NOW');
 
 const speedLocation = gl.getUniformLocation(program, 'SPEED');
 window.djb = {
-    speed: 0.0005
+    speed: 0.0005,
 };
 
 gl.clearColor(0.75, 0.85, 0.8, 1.0);
@@ -29,4 +40,4 @@ gl.clearColor(0.75, 0.85, 0.8, 1.0);
 
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     requestAnimationFrame(loop);
-}());
+})();
